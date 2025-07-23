@@ -6,6 +6,7 @@ import {
   getLastCpuUsage,
   getMeanDiskUsage,
   getMeanConnections,
+  getPerf,
 } from "./procedures/analysis";
 
 export const appRouter = router({
@@ -16,6 +17,7 @@ export const appRouter = router({
     getLastCpuUsage,
     getMeanDiskUsage,
     getMeanConnections,
+    getPerf,
   },
 });
 

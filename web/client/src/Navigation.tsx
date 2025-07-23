@@ -27,4 +27,5 @@ export const NAVIGATION: Navigation = [
   { segment: "cpu-memmory-efficiency", title: "Last Minute of CPU Usage" },
   { segment: "get-mean-disk-usage", title: "Mean Disk Usage" },
   { segment: "get-mean-connections", title: "Mean Network Connections" },
+  { segment: "get-perf", title: "Mem % / CPU % Usage" },
 ];

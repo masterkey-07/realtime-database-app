@@ -12,6 +12,7 @@ import type { JSX } from "react";
 import { CpuMemmoryEfficiency } from "./Pages/MeanCPU";
 import { MeanDisk } from "./Pages/MeanDisk";
 import { MeanConnections } from "./Pages/MeanConnections";
+import { CPUMemPerformance } from "./Pages/CPUMemPerformance";
 
 const theme = createTheme({
   cssVariables: {
@@ -37,6 +38,7 @@ function PageContent({ pathname }: { pathname: string }) {
     "/cpu-memmory-efficiency": <CpuMemmoryEfficiency />,
     "/get-mean-disk-usage": <MeanDisk />,
     "/get-mean-connections": <MeanConnections />,
+    "/get-perf": <CPUMemPerformance />,
   };
 
   return (

@@ -25,3 +25,25 @@ export const getMeanConnections = publicProcedure.query(() =>
                             GROUP BY time(1h) FILL(None)
 `)
 );
+
+export const getPerf = publicProcedure.query(async () => {
+  const cpu = await getFromQuery(`
+                            SELECT MEAN("cpu_percent") AS "mean"
+                            FROM "cpu"
+                            GROUP BY time(10m) FILL(None)
+                            
+`);
+
+  const mem = await getFromQuery(`
+                            SELECT MEAN("mem_percent") AS "mean"
+                            FROM "memory"
+                            GROUP BY time(10m) FILL(None)`);
+
+  console.log(cpu);
+  console.log(mem);
+
+  return cpu.map((c) => ({
+    mean: (mem.find((m) => c.time === m.time)?.mean || 0) / c?.mean,
+    time: c.time,
+  }));
+});
