@@ -9,7 +9,9 @@ import { Memory } from "./Pages/Memory";
 import { Network } from "./Pages/Network";
 import { System } from "./Pages/System";
 import type { JSX } from "react";
-import { CpuMemmoryEfficiency } from "./Pages/CpuMemmoryEfficiency";
+import { CpuMemmoryEfficiency } from "./Pages/MeanCPU";
+import { MeanDisk } from "./Pages/MeanDisk";
+import { MeanConnections } from "./Pages/MeanConnections";
 
 const theme = createTheme({
   cssVariables: {
@@ -33,6 +35,8 @@ function PageContent({ pathname }: { pathname: string }) {
     "/network": <Network />,
     "/system": <System />,
     "/cpu-memmory-efficiency": <CpuMemmoryEfficiency />,
+    "/get-mean-disk-usage": <MeanDisk />,
+    "/get-mean-connections": <MeanConnections />,
   };
 
   return (

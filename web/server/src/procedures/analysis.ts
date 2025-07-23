@@ -1,42 +1,27 @@
 import { getFromQuery } from "../helper";
 import { publicProcedure } from "../trpc";
+import { CpuPoint } from "../types";
 
-export const getCpuMemmoryEfficiency = publicProcedure.query(() =>
-  getFromQuery<{ avg_cpu: number; avg_mem: number }>(`
+export const getLastCpuUsage = publicProcedure.query(() =>
+  getFromQuery<CpuPoint>(`
                             SELECT *
-                            FROM "cpu", "memory"
-                            GROUP BY TIME(5m) FILL(None)
+                            FROM "cpu"
+                            WHERE time > now() - 1m
                         `)
 );
 
-export const getDiskPressureDuringHighProcessCount = publicProcedure.query(() =>
+export const getMeanDiskUsage = publicProcedure.query(() =>
   getFromQuery<{ avg_disk: number; avg_proc: number }>(`
-                            SELECT mean(disk.disk_percent) AS avg_disk, mean(proc.process_count) AS avg_proc
-                            FROM disk, process
-                            WHERE time > now() - 6h
-                            GROUP BY time(5m)
-                            HAVING avg_proc > 100
+                            SELECT MEAN("disk_percent")
+                            FROM "disk"
+                            GROUP BY TIME(10m) FILL(None)
 `)
 );
 
-export const getSystemIdleTimeEstimate = publicProcedure.query(() =>
+export const getMeanConnections = publicProcedure.query(() =>
   getFromQuery<{ avg_cpu: number; avg_mem: number; net_traffic: number }>(`
-                            SELECT mean(cpu.cpu_percent) AS avg_cpu, mean(memory.mem_percent) AS avg_mem, mean(net.bytes_sent + net.bytes_recv) AS net_traffic
-                            FROM cpu, memory, network
-                            WHERE time > now() - 12h
-                            GROUP BY time(10m)
-                            HAVING avg_cpu < 10 AND avg_mem < 30 AND net_traffic < 50000
+                            SELECT MEAN("connection_count") AS "mean"
+                            FROM "network_connections"
+                            GROUP BY time(1h) FILL(None)
 `)
-);
-
-export const getBateryEfficiencyOverLoad = publicProcedure.query(() =>
-  getFromQuery<{
-    battery_drain_rate: number;
-    avg_cpu: number;
-    avg_mem: number;
-  }>(`
-                            SELECT derivative(mean(bat.battery_percent), 1m) AS battery_drain_rate, mean(cpu.cpu_percent) AS avg_cpu, mean(memory.mem_percent) AS avg_mem
-                            FROM battery AS bat, cpu, memory AS memory
-                            WHERE time > now() - 2h AND bat.battery_power_plugged = false
-                            GROUP BY time(1m)`)
 );

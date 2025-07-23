@@ -3,10 +3,9 @@ import { getTemperature, getUsage as getCPUUsage } from "./procedures/cpu";
 import { getSwapUsage, getUsage as getMemoryUsage } from "./procedures/memory";
 import { getConnections, getFlow } from "./procedures/network";
 import {
-  getCpuMemmoryEfficiency,
-  getBateryEfficiencyOverLoad,
-  getDiskPressureDuringHighProcessCount,
-  getSystemIdleTimeEstimate,
+  getLastCpuUsage,
+  getMeanDiskUsage,
+  getMeanConnections,
 } from "./procedures/analysis";
 
 export const appRouter = router({
@@ -14,10 +13,9 @@ export const appRouter = router({
   memory: { getUsage: getMemoryUsage, getSwapUsage },
   network: { getConnections, getFlow },
   analysis: {
-    getCpuMemmoryEfficiency,
-    getBateryEfficiencyOverLoad,
-    getDiskPressureDuringHighProcessCount,
-    getSystemIdleTimeEstimate,
+    getLastCpuUsage,
+    getMeanDiskUsage,
+    getMeanConnections,
   },
 });
 

@@ -1,9 +1,13 @@
 import { client } from "./influx";
 
-export const getFromTable = async <T>(table: string) => {
-  const query = `SELECT * FROM "${table}"`;
+export const getFromTable = async <T>(
+  table: string,
+  operations: string = "",
+  select: string = "*"
+) => {
+  const query = `SELECT ${select} FROM "${table}" ${operations}`;
 
-  const result = client.query(query);
+  const result = client.query(query, undefined, { type: "influxql" });
 
   const output = [];
 
