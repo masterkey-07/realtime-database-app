@@ -39,11 +39,10 @@ export const getPerf = publicProcedure.query(async () => {
                             FROM "memory"
                             GROUP BY time(10m) FILL(None)`);
 
-  console.log(cpu);
-  console.log(mem);
-
   return cpu.map((c) => ({
     mean: (mem.find((m) => c.time === m.time)?.mean || 0) / c?.mean,
     time: c.time,
+    cpu: c.mean,
+    mem: mem.find((m) => c.time === m.time)?.mean || 0,
   }));
 });

@@ -48,9 +48,9 @@ export type NetworkConnectionsPoint = {
 
 export type BatteryPoint = {
   time: number;
-  battery_percent: number | null;
-  battery_secs_left: number | null;
-  battery_power_plugged: boolean | null;
+  battery_percent: number;
+  battery_secs_left: number;
+  battery_power_plugged: boolean;
 };
 
 export type SystemInfoPoint = {

@@ -13,6 +13,7 @@ import { CpuMemmoryEfficiency } from "./Pages/MeanCPU";
 import { MeanDisk } from "./Pages/MeanDisk";
 import { MeanConnections } from "./Pages/MeanConnections";
 import { CPUMemPerformance } from "./Pages/CPUMemPerformance";
+import { Battery } from "./Pages/Battery";
 
 const theme = createTheme({
   cssVariables: {
@@ -35,6 +36,7 @@ function PageContent({ pathname }: { pathname: string }) {
     "/memory": <Memory />,
     "/network": <Network />,
     "/system": <System />,
+    "/battery": <Battery />,
     "/cpu-memmory-efficiency": <CpuMemmoryEfficiency />,
     "/get-mean-disk-usage": <MeanDisk />,
     "/get-mean-connections": <MeanConnections />,

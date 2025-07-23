@@ -18,7 +18,10 @@ export const NAVIGATION: Navigation = [
     segment: "network",
     title: "Network",
   },
-
+  {
+    segment: "battery",
+    title: "Battery",
+  },
   { kind: "divider" },
   {
     kind: "header",
